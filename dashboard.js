@@ -1,53 +1,46 @@
 // Initialize Supabase client
 const supabaseUrl = 'SUPABASE_URL'
 const supabaseKey = 'SUPABASE_KEY'
+const supabase = window.supabase.createClient(supabaseUrl, supabaseKey)
 
-// Only initialize if we have valid-looking values
-if (supabaseUrl === 'SUPABASE_URL' || supabaseKey === 'SUPABASE_KEY') {
-    console.error('Error: Supabase credentials not properly replaced')
-    window.location.href = 'index.html'
-} else {
-    const supabase = window.supabase.createClient(supabaseUrl, supabaseKey)
-
-    // Check if user is authenticated
-    async function checkAuth() {
-        const { data: { user }, error } = await supabase.auth.getUser()
-        if (error || !user) {
-            window.location.href = 'index.html'
-            return
-        }
-        return user
+// Check if user is authenticated
+async function checkAuth() {
+    const { data: { user }, error } = await supabase.auth.getUser()
+    if (error || !user) {
+        window.location.href = 'index.html'
+        return
     }
+    return user
+}
 
-    // Update UI with user info
-    async function updateUI() {
-        const user = await checkAuth()
-        if (user) {
-            document.getElementById('userEmail').textContent = user.email
-        }
+// Update UI with user info
+async function updateUI() {
+    const user = await checkAuth()
+    if (user) {
+        document.getElementById('userEmail').textContent = user.email
     }
+}
 
-    // Set current date
-    function setCurrentDate() {
-        const date = new Date()
-        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
-        document.getElementById('currentDate').textContent = date.toLocaleDateString('en-US', options)
+// Set current date
+function setCurrentDate() {
+    const date = new Date()
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
+    document.getElementById('currentDate').textContent = date.toLocaleDateString('en-US', options)
+}
+
+// Handle logout
+document.getElementById('logoutBtn').addEventListener('click', async () => {
+    const { error } = await supabase.auth.signOut()
+    if (!error) {
+        window.location.href = 'index.html'
     }
+})
 
-    // Handle logout
-    document.getElementById('logoutBtn').addEventListener('click', async () => {
-        const { error } = await supabase.auth.signOut()
-        if (!error) {
-            window.location.href = 'index.html'
-        }
-    })
+// Initialize dashboard
+async function initDashboard() {
+    await updateUI()
+    setCurrentDate()
+}
 
-    // Initialize dashboard
-    async function initDashboard() {
-        await updateUI()
-        setCurrentDate()
-    }
-
-    // Run initialization
-    initDashboard()
-} 
+// Run initialization
+initDashboard() 
