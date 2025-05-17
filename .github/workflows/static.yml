@@ -34,9 +34,14 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Replace Supabase secrets in JS
+        env:
+          SUPABASE_URL: ${{ secrets.__SUPABASE_URL__ }}
+          SUPABASE_KEY: ${{ secrets.__SUPABASE_KEY__ }}
         run: |
-          find . -type f -name "*.js" -exec sed -i 's|__SUPABASE_URL__|${{ secrets.SUPABASE_URL }}|g' {} +
-          find . -type f -name "*.js" -exec sed -i 's|__SUPABASE_KEY__|${{ secrets.SUPABASE_KEY }}|g' {} +
+          echo "Replacing Supabase secrets..."
+          find . -type f -name "*.js" -exec sed -i "s|__SUPABASE_URL__|${SUPABASE_URL}|g" {} +
+          find . -type f -name "*.js" -exec sed -i "s|__SUPABASE_KEY__|${SUPABASE_KEY}|g" {} +
+          echo "Replacement complete"
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
