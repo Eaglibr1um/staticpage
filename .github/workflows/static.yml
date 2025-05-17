@@ -33,6 +33,10 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup Pages
         uses: actions/configure-pages@v5
+      - name: Replace Supabase secrets in JS
+        run: |
+          find . -type f -name "*.js" -exec sed -i 's|__SUPABASE_URL__|${{ secrets.SUPABASE_URL }}|g' {} +
+          find . -type f -name "*.js" -exec sed -i 's|__SUPABASE_KEY__|${{ secrets.SUPABASE_KEY }}|g' {} +
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
