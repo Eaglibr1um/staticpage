@@ -30,10 +30,13 @@ jobs:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
         run: |
-          echo "Replacing Supabase secrets..."
-          find . -type f -name "*.js" -exec sed -i "s#__SUPABASE_URL__#${SUPABASE_URL}#g" {} +
-          find . -type f -name "*.js" -exec sed -i "s#__SUPABASE_KEY__#${SUPABASE_KEY}#g" {} +
-          echo "Replacement complete"
+          echo "Starting replacement process..."
+          for file in $(find . -name "*.js"); do
+            echo "Processing $file..."
+            sed -i "s|SUPABASE_URL|${SUPABASE_URL}|g" "$file"
+            sed -i "s|SUPABASE_KEY|${SUPABASE_KEY}|g" "$file"
+            echo "Completed processing $file"
+          done
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
