@@ -1,7 +1,7 @@
 // Initialize Supabase client
 const supabaseUrl = 'SUPABASE_URL'
 const supabaseKey = 'SUPABASE_KEY'
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY)
+const supabase = window.supabase.createClient('SUPABASE_URL', 'SUPABASE_KEY')
 
 // Debug logging
 console.log('Debug - Detailed Supabase Values:', {
