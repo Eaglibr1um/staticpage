@@ -3,13 +3,24 @@ const supabaseUrl = 'SUPABASE_URL'
 const supabaseKey = 'SUPABASE_KEY'
 
 // Debug logging
-console.log('Debug - Supabase Values:', {
+console.log('Debug - Detailed Supabase Values:', {
     url: supabaseUrl,
-    key: supabaseKey?.substring(0, 10) + '...',  // Only show part of the key for security
+    urlLength: supabaseUrl.length,
+    urlStartsWithHttps: supabaseUrl.startsWith('https://'),
+    key: supabaseKey?.substring(0, 10) + '...',
+    keyLength: supabaseKey.length,
+    keyIncludes: {
+        dot: supabaseKey.includes('.'),
+        eyJ: supabaseKey.includes('eyJ'),
+    },
+    isExactlyPlaceholder: {
+        url: supabaseUrl === 'SUPABASE_URL',
+        key: supabaseKey === 'SUPABASE_KEY'
+    }
 })
 
 // Only initialize if we have valid-looking values
-if (!supabaseUrl.startsWith('https://') || !supabaseKey.includes('.')) {
+if (supabaseUrl === 'SUPABASE_URL' || supabaseKey === 'SUPABASE_KEY') {
     console.error('Error: Supabase credentials not properly replaced')
 } else {
     const supabase = window.supabase.createClient(supabaseUrl, supabaseKey)

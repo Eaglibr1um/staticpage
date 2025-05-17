@@ -3,7 +3,7 @@ const supabaseUrl = 'SUPABASE_URL'
 const supabaseKey = 'SUPABASE_KEY'
 
 // Only initialize if we have valid-looking values
-if (!supabaseUrl.startsWith('https://') || !supabaseKey.includes('.')) {
+if (supabaseUrl === 'SUPABASE_URL' || supabaseKey === 'SUPABASE_KEY') {
     console.error('Error: Supabase credentials not properly replaced')
     window.location.href = 'index.html'
 } else {
