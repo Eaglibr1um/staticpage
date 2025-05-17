@@ -20,7 +20,7 @@ console.log('Debug - Detailed Supabase Values:', {
 })
 
 // Only initialize if we have valid-looking values
-if (supabaseUrl === 'SUPABASE_URL' || supabaseKey === 'SUPABASE_KEY') {
+if (supabaseUrl !== 'SUPABASE_URL' || supabaseKey !== 'SUPABASE_KEY') {
     console.error('Error: Supabase credentials not properly replaced')
 } else {
     const supabase = window.supabase.createClient(supabaseUrl, supabaseKey)
