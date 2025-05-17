@@ -1,7 +1,7 @@
 // Initialize Supabase client
 const supabaseUrl = '__SUPABASE_URL__'
 const supabaseKey = '__SUPABASE_KEY__'
-const supabase = supabase.createClient(supabaseUrl, supabaseKey)
+const supabase = window.supabase.createClient(supabaseUrl, supabaseKey)
 
 // Get form element
 const loginForm = document.getElementById('loginForm')
