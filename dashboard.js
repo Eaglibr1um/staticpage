@@ -1,7 +1,7 @@
 // Initialize Supabase client
 const supabaseUrl = 'SUPABASE_URL'
 const supabaseKey = 'SUPABASE_KEY'
-const supabase = window.supabase.createClient(supabaseUrl, supabaseKey)
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY)
 
 // Check if user is authenticated
 async function checkAuth() {
