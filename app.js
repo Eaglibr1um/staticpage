@@ -1,6 +1,7 @@
 // Initialize Supabase client
 const supabaseUrl = '__SUPABASE_URL__'
 const supabaseKey = '__SUPABASE_KEY__'
+console.log('Supabase initialization:', { supabaseUrl, supabaseKey, windowSupabase: window.supabase })
 const supabase = window.supabase.createClient(supabaseUrl, supabaseKey)
 
 // Get form element
