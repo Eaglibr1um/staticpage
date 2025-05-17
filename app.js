@@ -15,12 +15,23 @@ loginForm.addEventListener('submit', async (e) => {
     const password = document.getElementById('password').value
     
     try {
+        messageDiv.textContent = 'Logging in...'
+        messageDiv.style.color = '#666'
+        
         const { data, error } = await supabase.auth.signInWithPassword({
             email: email,
             password: password,
         })
 
-        if (error) throw error
+        if (error) {
+            if (error.message.includes('Invalid login credentials')) {
+                throw new Error('Email or password is incorrect. Please try again.')
+            } else if (error.message.includes('Email not confirmed')) {
+                throw new Error('Please verify your email address before logging in.')
+            } else {
+                throw new Error('Login failed. Please try again later.')
+            }
+        }
 
         messageDiv.textContent = 'You are now signed in!'
         messageDiv.style.color = 'green'
@@ -32,6 +43,6 @@ loginForm.addEventListener('submit', async (e) => {
         
     } catch (error) {
         messageDiv.textContent = error.message
-        messageDiv.style.color = 'red'
+        messageDiv.style.color = '#dc3545'  // Bootstrap-like red color
     }
 }) 
