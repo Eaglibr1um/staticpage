@@ -1,17 +1,17 @@
 // Initialize Supabase client
-const supabaseUrl = '__SUPABASE_URL__'
-const supabaseKey = '__SUPABASE_KEY__'
+const supabaseUrl = 'SUPABASE_URL'
+const supabaseKey = 'SUPABASE_KEY'
 
 // Debug logging
 console.log('Debug - Supabase Values:', {
     url: supabaseUrl,
     key: supabaseKey,
-    isUrlPlaceholder: supabaseUrl === '__SUPABASE_URL__',
-    isKeyPlaceholder: supabaseKey === '__SUPABASE_KEY__'
+    isUrlPlaceholder: supabaseUrl === 'SUPABASE_URL',
+    isKeyPlaceholder: supabaseKey === 'SUPABASE_KEY'
 })
 
 // Only initialize if we have real values
-if (supabaseUrl === '__SUPABASE_URL__' || supabaseKey === '__SUPABASE_KEY__') {
+if (supabaseUrl === 'SUPABASE_URL' || supabaseKey === 'SUPABASE_KEY') {
     console.error('Error: Supabase credentials not properly replaced')
 } else {
     const supabase = window.supabase.createClient(supabaseUrl, supabaseKey)
