@@ -1,6 +1,6 @@
 // Initialize Supabase client
-const supabaseUrl = 'YOUR_SUPABASE_URL'
-const supabaseKey = 'YOUR_SUPABASE_ANON_KEY'
+const supabaseUrl = '__SUPABASE_URL__'
+const supabaseKey = '__SUPABASE_KEY__'
 const supabase = supabase.createClient(supabaseUrl, supabaseKey)
 
 // Get form element
@@ -22,11 +22,13 @@ loginForm.addEventListener('submit', async (e) => {
 
         if (error) throw error
 
-        messageDiv.textContent = 'Login successful!'
+        messageDiv.textContent = 'You are now signed in!'
         messageDiv.style.color = 'green'
         
-        // You can redirect to another page after successful login
-        // window.location.href = '/dashboard.html'
+        // Redirect to dashboard after successful login
+        setTimeout(() => {
+            window.location.href = 'dashboard.html'
+        }, 1000)
         
     } catch (error) {
         messageDiv.textContent = error.message
